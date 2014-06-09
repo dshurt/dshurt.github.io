@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<!--
+Copyright 2014 Space Dynamics Laboratory - Utah State University Research Foundation.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+	<head>
+		<title>User Profile</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="apidoc.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a href="index.html">Back to Index</a><br>
+		<h1>User Profile</h1>
+		A user profile contain information about the user and user specific data.  A user profile is created at the time the user logins in.
+		<h3>Resource Path: userprofiles/{id}</h3>
+		<h3>Resource Parameters: userprofiles/{id}</h3>
+		Note: id can be set to "CURRENTUSER" to perform operations on the currently logged in user.		
+		
+		<h2>Methods</h2>
+		<table width="100%" border="1">
+			<tr>
+				<th style='text-align: left;'>Method</th>
+				<th style='text-align: left;'>Security</th>
+				<th style='text-align: left;'>Description</th>
+				<th style='text-align: left;'>Path</th>
+				<th style='text-align: left;'>Parameters</th>				
+				<th style='text-align: left;'>Accept/Return Object</th>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Get a list of user profiles or an user profile matching Id</td>				
+				<td>userprofiles/{id}</td>
+				<td>id - optional</td>
+				<td align="left">
+					<pre>
+{
+	"username": "",
+	"firstname": "",
+	"lastname": "",
+	"email":"",
+	"user_type_code":"",
+	"createDts": "",
+	"updateDts":""
+}
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Nullable</th>
+							<th>Type</th>
+						</tr>
+						<tr>
+							<td>username</td>
+							<td>false</td>
+							<td>Text</td>						
+						</tr>						
+						<tr>
+							<td>firstname</td>
+							<td>true</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>lastname</td>
+							<td>true</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>email</td>
+							<td>true</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>userTypeCode</td>
+							<td>false</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>createDts</td>
+							<td>false</td>
+							<td>Timestamp (milliseconds since UNIX Epoch)</td>							
+						</tr>
+						<tr>
+							<td>updateDts</td>
+							<td>false</td>
+							<td>Timestamp (milliseconds since UNIX Epoch)</td>							
+						</tr>						
+					</table>					
+				</td>				
+			</tr>
+			<tr>
+				<td>POST, PUT</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Updates the profile.</td>				
+				<td>userprofiles/{id}</td>
+				<td>id - Required</td>
+				<td>
+					<pre>
+{
+	"firstname": "",
+	"lastname": "",
+	"email":"",
+	"userTypeCode":"",
+}
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Required</th>
+							<th>Type</th>
+							<th>Validate Values</th>
+						</tr>
+						<tr>
+							<td>firstname</td>
+							<td>false</td>
+							<td>Text</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>lastname</td>
+							<td>false</td>
+							<td>Text</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>email</td>
+							<td>false</td>
+							<td>Text</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>userTypeCode</td>
+							<td>true</td>
+							<td>Text</td>
+							<td>ENDUSER, DEV, PM</td>
+						</tr>						
+					</table>
+				</td>					
+			</tr>
+			<tr>
+				<td>DELETE</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Deletes a user profile. Note: when the user next login in a new user profile will be created.  This is not used for IDAM.  IDAM administration is handled by an external system.</td>				
+				<td>userprofiles/{id}</td>
+				<td>id - Required</td>
+				<td>
+				</td>					
+			</tr>			
+		</table>		
+			
+		
+		<h2>Additional Paths</h2>
+		<table width="100%">
+			<tr>
+				<th style='text-align: left;'>Method</th>
+				<th style='text-align: left;'>Security</th>
+				<th style='text-align: left;'>Description</th>				
+				<th style='text-align: left;'>Path</th>
+				<th style='text-align: left;'>Parameters</th>
+				<th style='text-align: left;'>Return</th>
+			</tr>
+
+			<tr>
+				<td>GET</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Retrieves Active User Watches. </td>
+				<td>userprofiles/{id}/watches/{watchId}</td>
+				<td>
+					id - Required <br>
+					watchId - Optional <br>
+				</td>				
+				<td>
+					<pre>
+{
+	"watchId": "",
+	"lastUpdateDts": "",
+	"lastViewDts": "",	
+	"createDts": "",		
+	"componentName": ""
+	"componentId": ""	
+}
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Nullable</th>
+							<th>Type</th>
+						</tr>
+						<tr>
+							<td>watchId</td>
+							<td>false</td>
+							<td>Number</td>						
+						</tr>						
+						<tr>
+							<td>lastUpdateDts</td>
+							<td>false</td>
+							<td>Timestamp (milliseconds since UNIX Epoch)</td>							
+						</tr>
+						<tr>
+							<td>lastViewDts</td>
+							<td>false</td>
+							<td>Timestamp (milliseconds since UNIX Epoch)</td>							
+						</tr>
+						<tr>
+							<td>createDts</td>
+							<td>false</td>
+							<td>Timestamp (milliseconds since UNIX Epoch)</td>							
+						</tr>
+						<tr>
+							<td>componentName</td>
+							<td>false</td>
+							<td>Text</td>							
+						</tr>								
+						<tr>
+							<td>componentId</td>
+							<td>false</td>
+							<td>Number</td>							
+						</tr>						
+					</table>
+				</td>					
+			</tr>	
+
+			<tr>
+				<td>POST,PUT</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Adds or Update existing new watch.  On update:  it will update the last view date.</td>
+				<td>userprofiles/{id}/watches</td>
+				<td>
+					id - Required <br>					
+				</td>				
+				<td>
+					<pre>
+{
+	"componentId": ""	
+}
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Required</th>
+							<th>Type</th>
+							<th>Validate Values</th>
+						</tr>
+						<tr>
+							<td>componentId</td>
+							<td>true</td>
+							<td>Text</td>
+							<td></td>
+						</tr>					
+					</table>
+				</td>					
+			</tr>
+			<tr>
+				<td>DELETE</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Removes a Users Watch. </td>
+				<td>userprofiles/{id}/watches/{watchId}</td>
+				<td>
+					id - Required <br>
+					watchId - Required <br>
+				</td>				
+				<td>
+				</td>					
+			</tr>				
+			
+			
+			<tr>
+				<td>GET</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Retrieves Recent Views.  The system keep the 5 most recent.</td>
+				<td>userprofiles/{id}/recentviews/{viewId}</td>
+				<td>
+					id - Required <br>
+					viewId - Optional <br>
+				</td>				
+				<td>
+					<pre>
+{
+	"viewId": "",
+	"componentName": "",
+	"componentId": ""
+}
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Nullable</th>
+							<th>Type</th>
+						</tr>
+						<tr>
+							<td>viewId</td>
+							<td>false</td>
+							<td>Number</td>						
+						</tr>						
+						<tr>
+							<td>componentName</td>
+							<td>false</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>componentId</td>
+							<td>false</td>
+							<td>Number</td>							
+						</tr>
+					</table>
+				</td>					
+			</tr>
+		
+
+			
+			
+			
+			<tr>
+				<td>POST</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Adds a list of recent views for a user.  The server will remove old views on retrieve.</td>
+				<td>userprofiles/{id}/recentviews</td>
+				<td>
+					id - Required <br>
+					viewId - Optional <br>
+				</td>				
+				<td>
+					<pre>
+[{	
+	"componentId": "",
+	"viewDts": ""
+}]
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Required</th>
+							<th>Type</th>
+							<th>Validate Values</th>
+						</tr>
+						<tr>
+							<td>componentId</td>
+							<td>true</td>
+							<td>Text</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>viewDts</td>
+							<td>true</td>
+							<td>Timestamp (mm/dd/yyyy HH:MM:SS)</td>
+							<td></td>
+						</tr>
+					</table>
+				</td>					
+			</tr>			
+			
+			
+		</table>
+		
+	
+		
+		
+	</body>
+</html>

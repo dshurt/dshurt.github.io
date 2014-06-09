@@ -19,8 +19,171 @@ limitations under the License.
 		<title>Open Storefront API</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="apidoc.css" rel="stylesheet" type="text/css"/>
 	</head>
 	<body>
-		<div>API Content</div>
+		<h1>Open Storefront API</h1>
+		<br>
+		<br>
+		<div id="apidesc">
+			This document describes the API interface for the open storefront project.<br>			
+			<br>			
+			<b>Base Path:</b> /api<br>
+			<b>Security: </b> Basic Auth, API Key<br>
+			<b>Supported Content Type: </b>JSON <br><br>
+			For JSONP support set "callback" parameter.  For example: "callback=processResponse" the response would be "processResponse({"data":"data"});" <br>
+			The server also supports CORS.
+			
+			
+		</div>
+		<h2>Resources</h2>
+		(/api/resource/)
+		<div class="apilist">
+			<ul>
+				<li>
+					<a href="users.html">User Profile</a>
+				</li>
+				<li>
+					<a href="users.html">Component</a>
+				</li>
+				<li>
+					<a href="users.html">Component Attributes Types</a>
+				</li>	
+				<li>
+					<a href="user_types.html">Lookup Type </a> (User Types, Media Types, Resource Types, Evaluation Types, Rating Types ..etc)
+				</li>				
+			</ul>	
+			
+			<!--
+			<h4>Lookup Resources</h4>	
+			<ul>
+				<li>
+					<a href="user_types.html">User Types</a>
+				</li>
+				<li>
+					<a href="user_types.html">Media Types</a>
+				</li>
+				<li>
+					<a href="user_types.html">Resource Types</a>
+				</li>				
+				<li>
+					<a href="user_types.html">Evaluation Types</a>
+				</li>
+				<li>
+					<a href="user_types.html">Rating Types</a>
+				</li>				
+			</ul>	
+			-->
+			
+			
+			<h4>Application Resources</h4>	
+			<ul>
+				<li>
+					<a href="user_types.html">Branding</a>
+				</li>
+				<li>
+					<a href="user_types.html">Application Properties</a>
+				</li>
+				<li>
+					<a href="user_types.html">User Tracking</a>
+				</li>				
+				<li>
+					<a href="user_types.html">Component Tracking</a>
+				</li>
+				<li>
+					<a href="user_types.html">Error Ticket</a>
+				</li>				
+			</ul>			
+				
+				
+				
+
+				
+		</div>
+		
+		<h2>Services</h2>
+		(/api/service/)
+		<div class="apilist">
+	
+				
+		</div>		
+		
+		<h2>Common Application Success Codes</h2>	
+		Note: Redirection follows the HTTP protocols see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP codes</a><br>
+		<table>
+			<tr>
+				<th style='text-align: left;'>
+					Code
+				</th>
+				<th style='text-align: left;'>
+					Description
+				</th>
+			</tr>
+			<tr>
+				<td width="175">
+					200 OK
+				</td>
+				<td>
+					The request has succeeded.
+				</td>
+			</tr>
+			<tr>
+				<td>
+					201 Created
+				</td>
+				<td>
+					The request has been fulfilled and resulted in a new resource being created.
+					Location header is returned with the URI for the new resource.
+				</td>
+			</tr>			
+		</table>		
+		
+		<h2>Common Application Error Codes</h2>		
+		<table>
+			<tr>
+				<th style='text-align: left;'>
+					Code
+				</th>
+				<th style='text-align: left;'>
+					Description
+				</th>
+			</tr>
+			<tr>
+				<td width="175">
+					400 Bad Request
+				</td>
+				<td>
+					The request could not be understood by the server due to malformed syntax. 
+					Also can occur if the  required parameters are missing.
+				</td>
+			</tr>			
+			<tr>
+				<td width="175">
+					401 Unauthorized
+				</td>
+				<td>
+					The request requires user authentication. 
+				</td>
+			</tr>
+			<tr>
+				<td>
+					404 Not Found
+				</td>
+				<td>
+					The server has not found anything matching the Request-URI.
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					405 Method Not Allowed
+				</td>
+				<td>
+					The method specified in the Request-Line is not allowed for the resource identified by the Request-URI.
+					Also note, some method require the Admin role to accept the request.
+				</td>
+			</tr>			
+		</table>
+		
+		
 	</body>
 </html>
