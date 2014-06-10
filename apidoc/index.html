@@ -37,61 +37,39 @@ limitations under the License.
 			
 		</div>
 		<h2>Resources</h2>
-		(/api/resource/)
+		(/api/resource/)  - Resources are entities that the server manages.  API provides CRUD support, querying and some resource specific behavior.
 		<div class="apilist">
 			<ul>
 				<li>
 					<a href="users.html">User Profile</a>
 				</li>
 				<li>
-					<a href="users.html">Component</a>
+					<a href="component.html">Component</a>
 				</li>
 				<li>
-					<a href="users.html">Component Attributes Types</a>
+					<a href="attributeTypes.html">Attributes Types</a>
 				</li>	
 				<li>
-					<a href="user_types.html">Lookup Type </a> (User Types, Media Types, Resource Types, Evaluation Types, Rating Types ..etc)
+					<a href="lookup.html">Lookup Type </a> (User Types, Media Types, Resource Types, Evaluation Types, Rating Types ..etc)
 				</li>				
 			</ul>	
-			
-			<!--
-			<h4>Lookup Resources</h4>	
-			<ul>
-				<li>
-					<a href="user_types.html">User Types</a>
-				</li>
-				<li>
-					<a href="user_types.html">Media Types</a>
-				</li>
-				<li>
-					<a href="user_types.html">Resource Types</a>
-				</li>				
-				<li>
-					<a href="user_types.html">Evaluation Types</a>
-				</li>
-				<li>
-					<a href="user_types.html">Rating Types</a>
-				</li>				
-			</ul>	
-			-->
-			
-			
+		
 			<h4>Application Resources</h4>	
 			<ul>
 				<li>
-					<a href="user_types.html">Branding</a>
+					<a href="branding.html">Branding</a>
 				</li>
 				<li>
-					<a href="user_types.html">Application Properties</a>
+					<a href="appproperties.html">Application Properties</a>
 				</li>
 				<li>
-					<a href="user_types.html">User Tracking</a>
+					<a href="userTracking.html">User Tracking</a>
 				</li>				
 				<li>
-					<a href="user_types.html">Component Tracking</a>
+					<a href="componentTracking.html">Component Tracking</a>
 				</li>
 				<li>
-					<a href="user_types.html">Error Ticket</a>
+					<a href="errorTickets.html">Error Ticket</a>
 				</li>				
 			</ul>			
 				
@@ -102,7 +80,7 @@ limitations under the License.
 		</div>
 		
 		<h2>Services</h2>
-		(/api/service/)
+		Services are actions related that act across resources or apply behavior to the system.
 		<div class="apilist">
 	
 				
@@ -183,6 +161,29 @@ limitations under the License.
 				</td>
 			</tr>			
 		</table>
+		<br>
+		
+		<h2>Validation Error Model</h2>		
+		<pre>
+{
+	"success": "",
+	"errors": [
+	...'fieldname' : 'error message', 
+	...
+	]
+}			
+		</pre>		
+		
+		<h2>System Error Model</h2>
+		(Internal Errors;  Typically unexpected)
+		<pre>
+{
+	"message": "",
+	"errorTicketNumber": "",
+	"potentialResolution": ""
+}			
+		</pre>		
+		
 		
 		
 	</body>

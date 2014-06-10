@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!--
+Copyright 2014 Space Dynamics Laboratory - Utah State University Research Foundation.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+	<head>
+		<title>Lookup Type Resource</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="apidoc.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a href="index.html">Back to Index</a><br>
+		<h1>Lookup Types</h1>
+		A lookup entity provide a set of valid values for a given entity.  For Example: this can be used to fill drop-downs with values.
+		<h3>Resource Path: lookup/{entity}</h3>
+		<h3>Resource Query Parameters: </h3>
+		<table>
+			<tr>
+				<th>Parameter</th>
+				<th>Required</th>
+				<th>Defaults</th>		
+			</tr>
+			<tr>
+				<td>max</td>				
+				<td>false</td>
+				<td>10000</td>
+			</tr>
+			<tr>
+				<td>sortField</td>				
+				<td>false</td>
+				<td>description</td>
+			</tr>
+			<tr>
+				<td>sortOrder</td>				
+				<td>false</td>
+				<td>ASC</td>
+			</tr>
+			<tr>
+				<td>offset</td>				
+				<td>false</td>
+				<td>0</td>
+			</tr>
+			<tr>
+				<td>status</td>				
+				<td>false</td>
+				<td>A</td>
+			</tr>	
+			<tr>
+				<td>details</td>				
+				<td>false</td>
+				<td>false</td>
+			</tr>			
+			
+		</table>	
+	
+		<h2>Methods</h2>
+		<table width="100%" border="1">
+			<tr>
+				<th style='text-align: left;'>Method</th>
+				<th style='text-align: left;'>Security</th>
+				<th style='text-align: left;'>Description</th>
+				<th style='text-align: left;'>Path</th>
+				<th style='text-align: left;'>Parameters</th>				
+				<th style='text-align: left;'>Accept/Return Object</th>
+			</tr>
+			<tr>
+				<td>GET</td>
+				<td></td>
+				<td>Get a list of valid entity type or the list of entities entries </td>				
+				<td>lookup/{entity}/{id}</td>
+				<td>
+					entity - optional<br>
+					id - optional
+				</td>
+				
+				<td align="left">
+					<pre>
+[{
+	"code": "",
+	"description": "",
+	"activeStatus": "",
+	"createUser":"",
+	"createDts":"",
+	"updateUser": "",
+	"updateDts":""
+}]
+
+or (details false)
+
+[{
+	"code": "",
+	"description": ""	
+}]
+
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Nullable</th>
+							<th>Type</th>
+						</tr>
+						<tr>
+							<td>code</td>
+							<td>false</td>
+							<td>Text</td>						
+						</tr>						
+						<tr>
+							<td>description</td>
+							<td>false</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>activeStatus</td>
+							<td>false</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>createUser</td>
+							<td>false</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>createDts</td>
+							<td>false</td>
+							<td>Timestamp (milliseconds since UNIX Epoch)</td>							
+						</tr>
+						<tr>
+							<td>updateUser</td>
+							<td>false</td>
+							<td>Text</td>							
+						</tr>
+						<tr>
+							<td>updateDts</td>
+							<td>false</td>
+							<td>Timestamp (milliseconds since UNIX Epoch)</td>							
+						</tr>							
+					</table>					
+				</td>				
+			</tr>
+			<tr>
+				<td>POST, PUT</td>
+				<td>ADMIN</td>
+				<td>Add or Updates entity values</td>				
+				<td>lookup/{entity}</td>
+				<td>entity - Required</td>
+				<td>
+					<pre>
+[{
+	"code": "",
+	"description": ""	
+}]
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Required</th>
+							<th>Type</th>
+							<th>Validate Values</th>
+						</tr>
+						<tr>
+							<td>code</td>
+							<td>false</td>
+							<td>Text</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>description</td>
+							<td>false</td>
+							<td>Text</td>
+							<td></td>
+						</tr>					
+					</table>
+				</td>					
+			</tr>
+			<tr>
+				<td>DELETE</td>
+				<td>ADMIN</td>
+				<td>Deletes (Inactivates) a entities values or value</td>				
+				<td>lookup/{entity}/{id}</td>
+				<td>entity - Required</td>
+				<td>id - optional</td>
+				<td>
+				</td>					
+			</tr>			
+		</table>			
+		
+		
+		
+		
+	</body>
+</html>

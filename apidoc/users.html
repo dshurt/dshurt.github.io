@@ -26,7 +26,7 @@ limitations under the License.
 		<h1>User Profile</h1>
 		A user profile contain information about the user and user specific data.  A user profile is created at the time the user logins in.
 		<h3>Resource Path: userprofiles/{id}</h3>
-		<h3>Resource Parameters: userprofiles/{id}</h3>
+		<h3>Resource Parameters:  none</h3>
 		Note: id can be set to "CURRENTUSER" to perform operations on the currently logged in user.		
 		
 		<h2>Methods</h2>
@@ -52,7 +52,7 @@ limitations under the License.
 	"firstname": "",
 	"lastname": "",
 	"email":"",
-	"user_type_code":"",
+	"userTypeCode":"",
 	"createDts": "",
 	"updateDts":""
 }
@@ -358,6 +358,54 @@ limitations under the License.
 							<td>Timestamp (mm/dd/yyyy HH:MM:SS)</td>
 							<td></td>
 						</tr>
+					</table>
+				</td>					
+			</tr>			
+			
+			<tr>
+				<td>GET</td>
+				<td>ADMIN - needed when id is not  the current logged in User</td>
+				<td>Retrieves user reviews across components.</td>
+				<td>userprofiles/{id}/reviews/{reviewId}</td>
+				<td>
+					id - Required <br>
+					viewId - Optional <br>
+				</td>				
+				<td>
+					<pre>
+{
+	"reviewId": "",
+	"username": "",
+	"usertype": "",
+	"comment": "",
+	"componentId": "",
+	"activeStatus": "",
+	"createUser": "",
+	"createDts": "",
+	"updateUser": "",
+	"updateDts": "",
+	"ratings": [
+		{
+			"ratingTypeCode": "",
+			"value": "",
+			"comment": "",
+			"activeStatus": "",
+			"createUser": "",
+			"createDts": "",
+			"updateUser": "",
+			"updateDts": ""
+		}
+	]
+
+}
+					</pre>
+					<table width="100%">
+						<tr>
+							<th>Field</th>
+							<th>Nullable</th>
+							<th>Type</th>
+						</tr>
+						
 					</table>
 				</td>					
 			</tr>			
