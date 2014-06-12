@@ -15,18 +15,626 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html>
-	<head>
-		<title>Component</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	</head>
-	<body>
-		<a href="index.html">Back to Index</a><br>
-		<h1>Component</h1>
-		Component is central resource of the system.  A component is a listing of catalog item.
-		<h3>Resource Path: component/{id}</h3>
-		<h3>Resource Query Parameters: </h3>
-		
-		TODO: Document Methods
-	</body>
+<head>
+  <title>Component</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="apidoc.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <a href="index.html">Back to Index</a><br>
+  <h1>Component</h1>
+  Component is central resource of the system.  A component is a listing of catalog item.
+  <h3>Resource Path: component/{id}</h3>
+  <h3>Resource Query Parameters: </h3>
+  
+  <table width="100%" border="1">
+    <tbody>
+      <tr>
+        <th style="text-align: left;">Method</th>
+        <th style="text-align: left;">Security</th>
+        <th style="text-align: left;">Description</th>
+        <th style="text-align: left;">/components/</th>
+        <th style="text-align: left;">Parameters</th>       
+        <th style="text-align: left;">Accept/Return Object</th>
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - only admins may add components to the database</td>
+        <td>Add a component to the database</td>       
+        <td>/components/</td>
+        <td></td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - there is no need for restriction to user access to a component</td>
+        <td>Get a list of all components or a specific component's details determined by componentId</td>       
+        <td>/components/{componentId}/</td>
+        <td>componentId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - only admins may delete components from the database</td>
+        <td>Delete a component from the database</td>       
+        <td>/components/{componentId}/</td>
+        <td>componentId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to retrive tags</td>
+        <td>Get the list of all tags from the tag cloud (useful for auto suggestion)</td>
+        <td>/components/tags/</td>
+        <td></td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>USER - Admin is not required to post or put tags</td>
+        <td>Save a new tag to the tag cloud</td>
+        <td>/components/tags/</td>
+        <td></td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - needed in order to delete a tag from the tag cloud</td>
+        <td>Delete a tag from the tag cloud perminantly</td>
+        <td>/components/tags/{tagId}</td>
+        <td>tagId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>ADMIN - needed to provide a security layer between users and all media</td>
+        <td>Get all media objects connected to components</td>       
+        <td>/components/media/</td>
+        <td></td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>ADMIN - needed to provide a security layer betwen users and all reviews</td>
+        <td>Get all reviews connected to any component</td>       
+        <td>/components/reviews/</td>
+        <td></td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - the extra security layer is not required for features</td>
+        <td>Get a list of all features, or a specific feature from the features list</td>       
+        <td>/components/features/{featureId}/</td>
+        <td>featureId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - only admin may add features to the possible features list</td>
+        <td>Add another feature to the feature list</td>       
+        <td>/components/features/</td>
+        <td></td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - only admin may delete features to the possible features list</td>
+        <td>Delete a feature from the feature list</td>       
+        <td>/components/features/{featureId}/</td>
+        <td>featureId - reqruied</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>ADMIN - needed to grab all resources connected to any component</td>
+        <td>Get a list of all resources, or get a resource by id</td>       
+        <td>/components/resource/{resourceId}</td>
+        <td>resourceId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - only admin may delete resources</td>
+        <td>Delete a resource by id</td>       
+        <td>/components/resource/{resourceId}</td>
+        <td>resourceId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - no extra security level is required to protect category infomration</td>
+        <td>Get a list of categories, or get categories by id</td>       
+        <td>/components/categories/{categoryId}</td>
+        <td>categoryId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - only admin are allowed to add categories</td>
+        <td>Add a category to the list of categories</td>       
+        <td>/components/categories/</td>
+        <td></td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - only admin are allowed to delete a category from the list of categories</td>
+        <td>Delete a category from the list of categories</td>       
+        <td>/components/categories/{categoryId}</td>
+        <td>categoryId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to retrieve tags</td>
+        <td>Get a list of tags per component or a tag specific to a component</td>       
+        <td>/components/{componentId}/tags/{tagId}</td>
+        <td>componentId - required, tagId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>USER - Admin is not required to tag a component</td>
+        <td>Add a tag specific to a component</td>       
+        <td>/components/{componentId}/tags/{tagId}</td>
+        <td>componentId - required, tagId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>USER - Admin is not required to un-tag a component</td>
+        <td>Remove a tag specific to a component</td>       
+        <td>/components/{componentId}/tags/{tagId}</td>
+        <td>componentId - required, tagId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>User - Admin is not required to retrieve a component specific media</td>
+        <td>Get the list of media speciific to a component, or get a specific media from a specific component</td>       
+        <td>/components/{componentId}/media/{mediaId}/</td>
+        <td>componentId - reqruied, mediaId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - Users will be restricted from posting media for specific components</td>
+        <td>Add a piece of media to a specific component</td>       
+        <td>/components/{componentId}/media/{mediaId}/</td>
+        <td>componentId - reqruied, mediaId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - Users will be restricted from deleting media from specific components</td>
+        <td>Delete a piece of media from a specific component</td>       
+        <td>/components/{componentId}/media/{mediaId}/</td>
+        <td>componentId - reqruied, mediaId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>User - Admin is not required to retrieve a component specific feature list</td>
+        <td>Get the list of features specific to a component, or get a specific feature from a specific component</td>       
+        <td>/components/{componentId}/features/{featureId}/</td>
+        <td>componentId - reqruied, featureId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - Users will be restricted from posting features for specific components</td>
+        <td>Add a feature to a specific component</td>       
+        <td>/components/{componentId}/features/{featureId}/</td>
+        <td>componentId - reqruied, featureId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - Users will be restricted from deleting features from specific components</td>
+        <td>Delete a feature from a specific component</td>       
+        <td>/components/{componentId}/features/{featureId}/</td>
+        <td>componentId - reqruied, featureId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>User - Admin is not required to retrieve a component specific resource list</td>
+        <td>Get the list of resources specific to a component, or get a specific resource from a specific component</td>       
+        <td>/components/{componentId}/resources/{resourceId}/</td>
+        <td>componentId - reqruied, resourceId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - Users will be restricted from posting resources for specific components</td>
+        <td>Add a resource to a specific component</td>       
+        <td>/components/{componentId}/resources/{resourceId}/</td>
+        <td>componentId - reqruied, resourceId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - Users will be restricted from deleting resources from specific components</td>
+        <td>Delete a resource from a specific component</td>       
+        <td>/components/{componentId}/resources/{resourceId}/</td>
+        <td>componentId - reqruied, resourceId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>User - Admin is not required to retrieve a component specific category list</td>
+        <td>Get the list of categories specific to a component, or get a specific category from a specific component</td>       
+        <td>/components/{componentId}/categories/{categoryId}/</td>
+        <td>componentId - reqruied, categoryId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - Users will be restricted from posting categories for specific components</td>
+        <td>Add a category to a specific component</td>       
+        <td>/components/{componentId}/categories/{categoryId}/</td>
+        <td>componentId - reqruied, categoryId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - Users will be restricted from deleting categories from specific components</td>
+        <td>Delete a category from a specific component</td>       
+        <td>/components/{componentId}/categories/{categoryId}/</td>
+        <td>componentId - reqruied, categoryId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to retrieve review data for a specific component</td>
+        <td>Get the list of reviews for a component, or a specific review by reviewId</td>
+        <td>/components/{componentId}/reviews/{reviewId}/</td>
+        <td>componentId - required, reviewId - optional</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>USER - Admin is not required to post a review on a specific component</td>
+        <td>Add a review for a specific component</td>
+        <td>/components/{componentId}/reviews/</td>
+        <td>componentId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - needed when the person deleting the review is not the user that gave it</td>
+        <td>Delete a specific review for a specific component</td>
+        <td>/components/{componentId}/reviews/{reviewId}/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to retrieve all ratings for the reviews on a certain component</td>
+        <td>Get a list of all ratings from all the reviews on a certain component</td>       
+        <td>/components/{componentId}/reviews/rating/</td>
+        <td>componentId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to retrieve all </td>
+        <td>Get a list of all pros and cons listings for a certain component</td>       
+        <td>/components/{componentId}/reviews/proCons/</td>
+        <td>componentId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to retrieve all </td>
+        <td>Get a list of all of the comments for a certain component</td>       
+        <td>/components/{componentId}/reviews/comments/</td>
+        <td>componentId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to get a specific review's rating</td>
+        <td>Get a specific review's rating for a specific component</td>       
+        <td>/components/{componentId}/reviews/{reviewId}/rating/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - admin is needed only if the current user is not the same user that posted the review</td>
+        <td>Post the rating of a specific review for a specific component</td>       
+        <td>/components/{componentId}/reviews/{reviewId}/rating/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - admin is needed only if the current user is not the same user that posted the review</td>
+        <td>Delete the rating of a specific review for a specific component</td>       
+        <td>/components/{componentId}/reviews/{reviewId}/rating/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to get a specific review's proCons</td>
+        <td>Get a specific pros and cons list from a specific review for a specific component</td>       
+        <td>/components/{componentId}/reviews/{reviewId}/proCons/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - admin is needed only if the current user is not the same user that posted the review</td>
+        <td>Post the pros and cons of a specific review for a specific component</td>       
+        <td>/components/{componentId}/reviews/{reviewId}/proCons/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td>ADMIN - admin is needed only if the current user is not the same user that posted the review</td>
+        <td>Delete the pros and cons of a specific review for a specific component</td>       
+        <td>/components/{componentId}/reviews/{reviewId}/proCons/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td>USER - Admin is not required to get a specific review's comments</td>
+        <td>Get a list of all coments in a specific review for a specific component</td>       
+        <td>/components/{componentId}/reviews/{reviewId}/comments/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr>
+      <tr>
+        <td>POST/PUT</td>
+        <td>ADMIN - admin is needed only if the current user is not the same user that posted the review</td>
+        <td>Post the comments of a specific review for a specific component</td>       
+        <td>/components/{componentId}/reviews/{reviewId}/comments/</td>
+        <td>componentId - required, reviewId - required</td>
+        <td align="left">
+          <pre>
+            <!-- Expected return object -->
+          </pre>
+          <!-- Table -->
+        </td>       
+      </tr><tr>
+      <td>DELETE</td>
+      <td>ADMIN - admin is needed only if the current user is not the same user that posted the review</td>
+      <td>Delete the comments of a specific review for a specific component</td>       
+      <td>/components/{componentId}/reviews/{reviewId}/comments/</td>
+      <td>componentId - required, reviewId - required</td>
+      <td align="left">
+        <pre>
+          <!-- Expected return object -->
+        </pre>
+        <!-- Table -->
+      </td>       
+    </tr>
+  </tbody>
+</body>
 </html>
