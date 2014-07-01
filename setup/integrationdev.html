@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<!--
+Copyright 2014 Space Dynamics Laboratory - Utah State University Research Foundation.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+	<head>
+		<title>Integration/Dev</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css"/>
+		<link href="setup.css" rel="stylesheet" type="text/css"/>
+		
+		<script src="jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+		<script src="jquery/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<h2>Integration/Development</h2>
+		<h2>Operating System: CentOS 6.5</h2>
+		<br>
+		<h4>VM Hardware</h4>
+		<b>CPUs:</b> 2
+		<b>RAM:</b> 4GB (Minimum)
+		<b>DISK:</b> 40GB
+		<hr><br>
+		<h3>Install</h3>
+		*Unless otherwise noted run as sudo ("sudo su")
+		<div class="subsection">
+			<h4>General Tools</h4>
+			<hr>
+			<div class="install-item">
+			Install nano
+			<ol>
+				<li>
+					yum install nano	
+				</li>
+			</ol>					
+			</div>
+				
+		</div>
+		<div class="subsection">
+			<h4>Platforms</h4>
+			<hr>
+			<div class="install-item">
+				<div class="app-title">
+					Java (7u60, 8u05)
+				</div>	
+				JDK Versions 7u60, 8u05  (7 is need for Open Am) 64-bit versions (tar.gz)<br>
+				<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>
+	<pre>	
+1.  Download JDKs from Oracle
+2.  Move the downloads to the server (home directory)
+3.  Sudo su (run as root)
+4.  Extract and move folders
+	a.  mkdir /usr/java	
+	b.  tar -xvf jdk-7u60-linux-x64.tar.gz
+	c.  tar -xvf jdk-8u5-linux-x64.tar.gz
+	d.  mv jdk1.7.0_60 /usr/java/
+	e.  mv jdk1.8.0_05 /usr/java/
+	f.  chmod 755 -R /usr/java
+
+5.  Create Links
+	a.  ln -s /usr/java/jdk1.7.0_60 /usr/java/jdk7
+	b.  ln -s /usr/java/jdk1.8.0_05 /usr/java/jdk8
+	c.  ln -s /usr/java/jdk1.8.0_05 /usr/java/latest
+
+6.  Setup Environment Vars
+	(see <a href="http://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/" target="_blank">http://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/</a>)
+	a.  nano /etc/profile
+	b.  Add to the bottom:
+		#Java Path
+		export PATH=$PATH:/usr/java/latest/bin
+		export JAVA_HOME=/usr/java/latest
+	c.  Save/Exit then  source /etc/profile
+	d.  nano /etc/bash.bashrc
+	e.  Add to the bottom:
+		#Java Path
+		export PATH=$PATH:/usr/java/latest/bin
+		export JAVA_HOME=/usr/java/latest
+	f.   Save/Exit then  source /etc/bash.bashrc
+	g.  Confirm “java –version” it should run
+	</pre>				
+			
+			<div class="app-title">
+					Node.js (0.10.28, 1.3.6 npm)
+			</div>				
+				(see <a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager" target="_blank">https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager</a>)
+				<pre>
+1.  yum repolist  (Confirm EPEL is listed)
+2.  sudo yum install nodejs npm --enablerepo=epel
+3.  npm –g install grunt
+4.  npm –g install bower					
+				</pre>
+			<div class="app-title">
+					Ruby/Compass (2.1.0 ruby)
+			</div>				
+				(see <a href="https://www.digitalocean.com/community/tutorials/how-to-install-ruby-2-1-0-on-centos-6-5-using-rvm" target="_blank">https://www.digitalocean.com/community/tutorials/how-to-install-ruby-2-1-0-on-centos-6-5-using-rvm</a>)
+				<pre>
+1.  yum groupinstall -y development
+2.  (SSL Issues) 
+	a.  echo insecure >> ~/.curlrc
+3.  curl -L get.rvm.io | bash -s stable
+4.  source /etc/profile.d/rvm.sh
+5.  rvm reload
+6.  rvm install 2.1.0 
+7.  gem install compass (Compass 0.12.6)
+					
+				</pre>				
+			</div>	
+		</div>				
+		<div class="subsection">
+			<h4>Applications</h4>
+			<hr>
+			<div class="install-item">
+				<div class="app-title">
+					Apache  (2.2.15-30el6.centos)
+				</div>	
+	<pre>	
+1.  yum -y install httpd mod_ssl
+2.  chkconfig --levels 235 httpd on
+3.  /etc/init.d/httpd start
+	</pre>	
+				<div class="app-title">
+					Wildfly (8.1)					
+				</div>	
+				<a href="http://lucene.apache.org/solr/"  target="_blank">http://wildfly.org/downloads/</a>
+	<pre>	
+1.  Download and copy to home directory
+2.  tar -xvf wildfly-8.1.0.Final.tar.gz
+3.  mkdir /usr/local/wildfly
+4.  mv wildfly-8.1.0.Final /usr/local/wildfly
+5.  ln -s /usr/local/wildfly/wildfly-8.1.0.Final/ /usr/local/wildfly/latest
+6.  chmod 755 -R /usr/local/wildfly
+	</pre>	
+				<div class="app-title">
+					Mysql (5.1.73-3.el6-5)					
+				</div>	
+	<pre>	
+1.  yum -y install mysql mysql-server
+2.  chkconfig --levels 235 mysqld on 
+3.  /etc/init.d/mysqld start
+4.  mysql_secure_installation
+	a.  set root password
+	b.  remove anonymous users? Y
+	c.  disallow root login remotely? Y
+	d.  remove test db? Y
+	e.  reload privilege tables? Y
+
+	</pre>
+				<div class="app-title">
+					SOLR (4.9.0)				
+				</div>	
+				(See <a href="http://lucene.apache.org/solr/"  target="_blank">http://lucene.apache.org/solr/</a>)
+	<pre>	
+1.  Download and copy to home directory
+2.  tar -xvf solr-4.9.0.tgz
+3.  mkdir /usr/local/solr
+4.  mv solr-4.9.0 /usr/local/solr
+5.  ln -s /usr/local/solr/solr-4.9.0 /usr/local/solr/latest
+6.  chmod 755 -R /usr/local/solr
+	</pre>				
+				<div class="app-title">
+					OpenAm					
+				</div>	
+				(See <a href="http://openam.forgerock.org/openam-documentation/openam-doc-source/doc/getting-started/index.html"  target="_blank">http://openam.forgerock.org/openam-documentation/openam-doc-source/doc/getting-started/index.html</a>)
+	<pre>	
+1.  Edit host file 
+	  a.  Nano /etc/hosts
+b.  Add store-dev.usu.di2e.net to localhost
+2.  Edit /etc/httpd/conf/httpd.conf
+	  a.  Change the ServerName to store-dev.usu.di2e.net:80
+3.  Install tomcat 8
+	  a.  Download and copy to home directory
+	  b.  tar -xvf apache-tomcat-8.0.9.tar.gz
+	  c.  mkdir /usr/local/tomcat
+	  d.  mv apache-tomcat-8.0.9 /usr/local/tomcat
+	  e.  ln -s /usr/local/tomcat/apache-tomcat-8.0.9 /usr/local/tomcat/latest
+	  f.  nano /usr/local/tomcat/latest/bin/setenv.sh
+	  i.  Add: 
+	  JAVA_HOME=/usr/java/jdk7
+	  CATALINA_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
+	  g.  nano /usr/local/tomcat/latest/conf/server.xml
+	  i.  Edit: 
+		(Connector port="8080" protocol="HTTP/1.1"
+			   connectionTimeout="20000"
+			   redirectPort="8443" /)
+	  TO
+		(Connector port="8280" protocol="HTTP/1.1"
+			   connectionTimeout="20000"
+			   redirectPort="8643" /)
+4.  Download OpenAM (<a href="http://forgerock.org/downloads/openam-builds/"  target="_blank">http://forgerock.org/downloads/openam-builds/</a>)
+5.  cp OpenAM-12.0.0-SNAPSHOT_20140625.war /usr/local/tomcat/latest/webapps/openam.war
+6.  chmod 755 -R /usr/local/tomcat
+	</pre>	
+				<div class="app-title">
+					Jenkins (1.569)
+				</div>	
+				(see <a href="http://jenkins-ci.org/"  target="_blank">http://jenkins-ci.org/</a>)<br>
+				<a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions#InstallingJenkinsonRedHatdistributions-ImportantNoteonCentOSJava"  target="_blank">https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions#InstallingJenkinsonRedHatdistributions-ImportantNoteonCentOSJava</a>
+	<pre>	
+1.  wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+2.  rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+3.  yum install jenkins
+	</pre>				
+				
+			</div>			
+		</div>
+
+			
+		<h3>Configure</h3>	
+		<div class="subsection">
+			<h4>Application Configuration</h4>
+			<hr>
+			<div class="install-item">
+				<div class="app-title">
+					Apache
+				</div>	
+				<pre>
+1.	nano /etc/httpd/conf/httpd.conf
+	a.	Add Proxies
+		SSLProxyEngine on
+		RewriteEngine on
+
+		#Openstorefront
+		ProxyPass /openstorefront http://localhost:8080/openstorefront
+		ProxyPassReverse /openstorefront http://localhost:8080/openstorefront
+
+		ProxyPass /openstorefront-web http://localhost:8080/openstorefront-web
+		ProxyPassReverse /openstorefront-web http://localhost:8080/openstorefront-web
+
+		#Open Am
+		ProxyPass /openam http://localhost:8280/openam
+		ProxyPassReverse /openam http://localhost:8280/openam
+
+		#Solr
+		ProxyPass /solr http://localhost:8983/solr
+		ProxyPassReverse /solr http://localhost:8983/solr
+
+		#Jenkins
+		ProxyPass /jenkins http://localhost:8180/jenkins
+		ProxyPassReverse /jenkins http://localhost:8180/jenkins
+
+	b.	Setup Deflate (Add before proxies at the end of the file)
+	SetOutputFilter DEFLATE
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript text/json application/json
+				</pre>
+			
+				<div class="app-title">
+					Mysql 
+				</div>	
+				<pre>
+1.	Create User
+	a.  mysql --user=root --password="password"
+	b.  Run the create user script (change the password) in (source)/server/db folder
+2.  Create schema (run the master script)
+	a.  Run the mysql_master script in (source)/server/db folder				
+				</pre>				
+			
+				<div class="app-title">
+					Wildfly
+				</div>	
+				<pre>
+---Config---
+1.  nano /usr/local/wildfly/latest/bin/standalone
+2.  Set  to –Xmx1024m (use –Xmx2048m if you have more memory)
+3.  Set up as a service (https://github.com/cejug/hurraa/issues/141)
+	a.  ln -s /usr/local/wildfly/latest/bin/init.d/wildfly-init-redhat.sh /etc/init.d/wildfly
+	b.  chmod 755 /etc/init.d/wildfly
+	c.  nano /usr/local/wildfly/latest/bin/init.d/wildfly.conf
+	i.  Uncomment:
+			JAVA_HOME=”/usr/java/latest”
+			JBOSS_HOME="/usr/local/wildfly/latest"
+			JBOSS_USER=wildfly
+			JBOSS_MODE=standalone
+			JBOSS_CONFIG=standalone.xml
+	d.  ln -s /usr/local/wildfly/latest/bin/init.d/wildfly.conf /etc/default/wildfly.conf
+	e.  chkconfig --level 345 wildfly on
+	f.  adduser wildfly
+	g.   gpasswd -a wildfly wildfly
+	h.  chown wildfly.wildfly -R /usr/local/wildfly/
+	i.  Replace 127.0.0.1 to 0.0.0.0 in nano wildfly/latest/standalone/configuration/standalone.xml
+4.  Open the web consol (Requires port 9990) to be open.  http://store-dev.usu.di2e.net:9990/console
+5.  Add Management User
+	a.  /usr/local/wildfly/latest/bin/add-user.sh
+	b.  Follow instructions  add a management user.  Say yes to remote connections…
+	
+---DB Setup---
+6.  Deploy driver mysql-connector-java-5.1.30-bin.jar  
+	a.  chown wildfly mysql-connector-java-5.1.30-bin.jar
+	b.  chmod 755 mysql-connector-java-5.1.30-bin.jar
+		cp -p mysql-connector-java-5.1.30-bin.jar /usr/local/wildfly/latest/standalone/deployments/
+7.  Under the configuration tab in the admin console:
+	a.  Add a new Datasource
+		Name: openstorefront-ds
+		JNDI Name: java:/jdbc/OpencatDS
+		Select: mysql-connector-java-5.1.30-bin.jar_com.mysql.jdbc.Driver_5_1
+		Connection URL: jdbc:mysql://localhost:3306/opencat?zeroDateTimeBehavior=convertToNull
+		Username: app
+		Password: (db_password)
+		--Save--
+8.  Edit Datasource:
+a.  Edit Pool set Min: 5 and Max: 40 idle  Timeout: 60
+9.  Enable datasource
+		
+Logging (Just setup the basic for now)
+10.  Set Root Logger (under Core Subsystem) to Fine and Console handler to Fine 
+					
+				</pre>
+			
+				<div class="app-title">
+					SOLR
+				</div>	
+				<pre>
+1.  Create start up script
+	a.  TODO:  Add application specific configuration					
+				</pre>
+			
+				<div class="app-title">
+					Jenkins
+				</div>	
+				<pre>
+1.  nano /etc/sysconfig/jenkins
+	a.  change JENKINS_PORT="8080" To JENKINS_PORT="8180"
+	b.  Add –prefix=/Jenkins to JENKINS_ARGS="--prefix=/jenkins"
+	c.  ln -s /usr/java/latest/bin/java /usr/bin/java
+	d.  http://"server address":8180/ (manage Jenkins, add jira, git hub plugins, update existing plugins)					
+				</pre>
+			
+				<div class="app-title">
+					Open AM
+				</div>	
+				<pre>
+Initial configuration
+Setup tomcat as a service (<a href="http://www.davidghedini.com/pg/entry/install_tomcat_7_on_centos"  target="_blank">http://www.davidghedini.com/pg/entry/install_tomcat_7_on_centos</a>)
+1.	nano /etc/init.d/tomcat
+	#!/bin/bash
+	# description: Tomcat Start Stop Restart
+	# processname: tomcat
+	# chkconfig: 234 20 80
+	JAVA_HOME=/usr/java/jdk7
+	export JAVA_HOME
+	PATH=$JAVA_HOME/bin:$PATH
+	export PATH
+	CATALINA_HOME=/usr/local/tomcat/latest 
+	case $1 in
+	start)
+	sh $CATALINA_HOME/bin/startup.sh
+	;; 
+	stop)   
+	sh $CATALINA_HOME/bin/shutdown.sh
+	;; 
+	restart)
+	sh $CATALINA_HOME/bin/shutdown.sh
+	sh $CATALINA_HOME/bin/startup.sh
+	;; 
+	esac    
+	exit 0
+2.  chmod 755 /etc/init.d/tomcat
+3.  chkconfig --add tomcat 
+4.  chkconfig --level 234 tomcat on
+5.  open port to tomcat.  Go to (server): 8280/openam  (Use the Default configuration and setup passwords					
+				</pre>
+			
+
+			</div>	
+		<div>	
+		<div class="subsection">
+			<h4>Port Map</h4>
+			<hr>
+			<table border="1">
+				<tr>
+					<th>Application</th>
+					<th>Ports</th>
+				</tr>
+				<tr>
+					<td width="200">Apache</td>
+					<td>80*, 443*</td>
+				</tr>
+				<tr>
+					<td width="200">Wildfly</td>
+					<td>8080*, 8443, 8787*, 9990*</td>
+				</tr>
+				<tr>
+					<td width="200">SOLR</td>
+					<td>8983*</td>
+				</tr>
+				<tr>
+					<td width="200">Jenkins</td>
+					<td>8180*</td>
+				</tr>
+				<tr>
+					<td width="200">Tomcat (Open AM)</td>
+					<td>8280, 8643</td>
+				</tr>				
+				<tr>
+					<td width="200">Mysql</td>
+					<td>3306*</td>
+				</tr>								
+			</table>
+			*open ports
+			<pre>
+iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+iptables -I INPUT -p tcp --dport 443 -j ACCEPT
+iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+iptables -I INPUT -p tcp --dport 8180 -j ACCEPT
+iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+iptables -I INPUT -p tcp --dport 8787 -j ACCEPT
+iptables -I INPUT -p tcp --dport  9990 -j ACCEPT
+iptables -I INPUT -p tcp --dport  8983 -j ACCEPT
+iptables -I INPUT -p tcp --dport  8280 -j ACCEPT
+service iptables save					
+			</pre>	
+		<div>				
+
+	<h3>Running State</h3>	
+		<div class="subsection">
+			<div class="app-title">
+				Apache: *
+			</div>
+			<div class="app-run-instructions">
+				service httpd start/stop/restart
+			</div><br>
+			<div class="app-title">
+				Mysql: *
+			</div>
+			<div class="app-run-instructions">
+				service mysqld start/stop/restart
+			</div><br>
+			<div class="app-title">
+				Jenkins: *
+			</div>
+			<div class="app-run-instructions">
+				service jenkins start/stop/restart
+			</div><br>
+			<div class="app-title">
+				Wildfly: *
+			</div>
+			<div class="app-run-instructions">
+				service wildfly start/stop/restart
+			</div>	<br>
+			<div class="app-title">
+				Tomcat: *
+			</div>
+			<div class="app-run-instructions">
+				service tomcat start/stop/restart
+			</div>	<br>
+			<div class="app-title">
+				SOLR: *
+			</div>
+			<div class="app-run-instructions">
+				TODO (once configuration is worked out
+			</div>	<br>
+			* Runs at start up
+		</div>
+		
+		
+	</body>
+</html>
