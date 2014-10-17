@@ -131,8 +131,35 @@ limitations under the License.
 2.  chkconfig --levels 235 httpd on
 3.  /etc/init.d/httpd start
 	</pre>	
+				
 				<div class="app-title">
-					Wildfly (8.1)					
+					Tomcat 7 (Currently using 7.0.55)			
+				</div>	
+				<a href="http://lucene.apache.org/solr/"  target="_blank">http://wildfly.org/downloads/</a>
+	<pre>	
+a.	Download and copy to home directory
+b.	tar -xvf apache-tomcat-7.0.55.tar.gz
+c.	mv apache-tomcat-7.0.55 /usr/local/tomcat
+d.	ln -s /usr/local/tomcat/apache-tomcat-7.0.55 /usr/local/tomcat/latest
+(use ln –nsf (target) (link) to repoint)
+e.	nano /usr/local/tomcat/latest/bin/setenv.sh
+CATALINA_OPTS=-Xmx1024m
+
+In the conf/server.xml
+Add compression on
+compression="on" compressableMimeType="text/html,text/xml,text/plain,application/json,text/css"
+
+Set up management console (http://www.mkyong.com/maven/how-to-deploy-maven-based-war-file-to-tomcat/)
+nano ../conf/tomcat-user.xml
+
+	&lt;role rolename="manager-gui"/&gt;
+	&lt;role rolename="manager-script"/&gt;
+	&lt;user username="admin" password="tcPw7maN" roles="manager-gui,manager-script" /&gt;
+
+	</pre>
+				
+				<div class="app-title">
+					Wildfly (8.1)	(Not using anymore)				
 				</div>	
 				<a href="http://lucene.apache.org/solr/"  target="_blank">http://wildfly.org/downloads/</a>
 	<pre>	
@@ -463,6 +490,93 @@ service iptables save
 			</div>	<br>
 			* Runs at start up
 		</div>
+		
+	
+		<h3>Additional notes</h3>	
+		<h4>Install the chrome driver for E2E</h4>
+		<pre>		
+(See http://chrome.richardlloyd.org.uk/)
+wget http://chrome.richardlloyd.org.uk/install_chrome.sh
+chmod u+x install_chrome.sh
+./install_chrome.sh
+
+To Uninstall:
+
+./install_chrome.sh -u  
+
+Download chromedriver (http://chromedriver.storage.googleapis.com/index.html)
+		</pre>
+		
+		<h4>ESA setup additional cores</h4>
+		<pre>		
+Login as root on the esa box. (http://10.12.81.16:8983/sol)
+
+Copy /opt/solr/solr/esa  dir (esa-dev, esa-test 
+a.	cp –avr  esa 
+b.	create directories /solrdata/esa-test, /solrdata/esa-test
+-	make sure the solr user owns the data directories.  Chown –R solr:solr esa-test
+
+From the admin Add the cores
+
+Esa-dev
+/opt/solr/solr/esa-dev/
+/solrdata/esadev/
+/opt/solr/solr/esa-dev/conf/ (solrconfig.xml…etc)
+
+Esa-test
+/opt/solr/solr/esa-test
+/solrdata/esatest
+/opt/solr/solr/esa-test/conf/ (solrconfig.xml…etc)
+
+		</pre>		
+		
+		<h4>Jenkins setup note</h4>
+		<pre>
+Jenkins Project Setup
+Configure jenkins http://<server>:8180/configure
+	Set JDK to JDK paths
+	Create maven 3 setup and use install automatically
+
+Install a later version of git CentOS 6.5 is running an old verion.
+http://tecadmin.net/install-git-1-9-on-centos-rhel/
+1.	yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker 
+2.	Download source http://git-scm.com/download or git clone git://git.kernel.org/pub/scm/git/git.git
+3.	Download https://www.kernel.org/pub/software/scm/git/  (git-1.8.5.tar.gz)
+4.	tar -xvf git-1.8.5.tar.gz *1.8.x was reccommended
+5.	make prefix=/usr/local/git all
+6.	make prefix=/usr/local/git install
+7.	nano /etc/bashrc
+a.	export PATH=$PATH:/usr/local/git/bin (this should be first in the path)
+8.	source /etc/bashrc (Note you may need to move the export before TMOUT if it fails)
+9.	nano /etc/profile
+a.	export PATH=$PATH:/usr/local/git/bin
+10.	source /etc/profile
+
+
+For the Deploy:
+-------------------
+
+Create script: (in the build task)
+
+wget -O /tmp/openstorefront.war http://store-dev.usu.di2e.net/jenkins/job/Openstorefront-Server/ws/server/openstorefront/openstorefront-web/target/openstorefront-web.war
+chmod 755 /tmp/openstorefront.war
+#/usr/local/wildfly/latest/bin/jboss-cli.sh --connect --command="deploy /tmp/openstorefront.war --force"
+
+curl -u user:password "http://localhost:8080/manager/text/deploy?path=/openstorefront&war=file:/tmp/openstorefront.war&update=true"
+
+#For remote
+curl -u user:password -X PUT "http://store-accept.usu.di2e.net:8080/manager/text/deploy?path=/openstorefront&update=true" --data-binary @/tmp/openstorefront.war
+
+For Client Build:
+---------------------
+Install grunt (sudo)
+npm install -g grunt-cli
+			
+
+For Container Tests:
+wget "http://localhost:8080/openstorefront/test/ServiceTest.action?RunTest&dummy=.html"
+
+		</pre>
 		
 		
 	</body>
